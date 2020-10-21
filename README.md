@@ -1,7 +1,7 @@
 <h3 align="center">Writer Node Middleware fr LACChain EOSIO Network</h3>
 
 <p align="center">
-A proxy for the ESIO HTTP RPC API that includes writer signatures to authorize transactions as well as comply with EOS Signing request for authentication using popular wallets.
+A proxy for the EOSIO HTTP RPC API that includes writer signatures to authorize transactions as well as comply with EOS Signing request for authentication using popular wallets.
 </p>
 
 <!-- ABOUT THE PROJECT -->
@@ -15,8 +15,6 @@ A proxy for the ESIO HTTP RPC API that includes writer signatures to authorize t
 * [axios]()
 * [Docker]()
 * [Kubernetes]()
-
-
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -42,28 +40,21 @@ git clone https://github.com/LatamLink/writer-middleware.git
 npm install
 ```
 
-
 ### Set Environmental Variables
 
 Set environmental variables by renaming `env.example` to `.env.` and adding corrects values to `.env` file.
-
-
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-_For more examples, please refer to the [Documentation](https://latamlink.io/docs/eosio_
-
-
+For more examples, please refer to the [Documentation](https://latamlink.io/docs/eosio)
 
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a list of proposed features (and known issues).
-
-
+See the [open issues](https://github.com/LatamLink/writer-middleware/issues) for a list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -76,19 +67,17 @@ Contributions are what make the open source community such an amazing place to b
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-
-
 <!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-
-
 <!-- CONTACT -->
 ## Contact
 
-Latamlink - [@LatamLink_EOS](https://twitter.com/LatamLink_EOS) - email
+Website - [latamlink.io](https://latamlink.io)
+
+Twitter - [@LatamLink_EOS](https://twitter.com/LatamLink_EOS)
 
 Project Link: [https://github.com/LatamLink/writer-middleware](https://github.com/LatamLink/writer-middleware)
 
