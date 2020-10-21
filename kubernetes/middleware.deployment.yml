@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: middleware
+  name: middleware
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: middleware
+  template:
+    metadata:
+      labels:
+        app: middleware
+    spec:
+      containers:
+        - image: ${DOCKER_REGISTRY}/${MIDDLEWARE_IMAGE_NAME}:${MIDDLEWARE_VERSION}
+          name: middleware
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: 200m
+              memory: "200Mi"
+            limits:
+              cpu: "1"
+              memory: "200Mi"
+          env:
+          - name: MIDDLEWARE_EOS_API_ENDPOINT
+            value: ${MIDDLEWARE_EOS_API_ENDPOINT}
+          - name: MIDDLEWARE_EOS_API_CHAIN_ID
+            value: ${MIDDLEWARE_EOS_API_CHAIN_ID}
+          - name: MIDDLEWARE_EOS_WRITER_PUB_KEY
+            value: ${MIDDLEWARE_EOS_WRITER_PUB_KEY}
+          - name: MIDDLEWARE_EOS_WRITER_PRI_KEY
+            value: ${MIDDLEWARE_EOS_WRITER_PRI_KEY}

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: middleware
+  labels:
+    app: middleware
+    version: ${MIDDLEWARE_VERSION}
+spec:
+  selector:
+    app: middleware
+  ports:
+  - port: 80
+    targetPort: 8080
+    name: http
+    protocol: TCP
