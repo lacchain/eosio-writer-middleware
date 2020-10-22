@@ -1,0 +1,20 @@
+version: "3.5"
+
+services:
+  writer-middleware:
+    container_name: writer-middleware
+    image: node:14.2.0
+    ports:
+      - "4200:8080"
+    volumes:
+      - ./temp/node_modules:/app/node_modules
+      - type: bind
+        source: ./
+        target: /app
+    working_dir: /app
+    command: bash -c "yarn && yarn watch"
+    environment:
+      MIDDLEWARE_EOS_API_ENDPOINT: "${MIDDLEWARE_EOS_API_ENDPOINT}"
+      MIDDLEWARE_EOS_API_CHAIN_ID: "${MIDDLEWARE_EOS_API_CHAIN_ID}"
+      MIDDLEWARE_EOS_WRITER_PUB_KEY: "${MIDDLEWARE_EOS_WRITER_PUB_KEY}"
+      MIDDLEWARE_EOS_WRITER_PRI_KEY: "${MIDDLEWARE_EOS_WRITER_PRI_KEY}"
