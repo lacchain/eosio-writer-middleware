@@ -6,6 +6,10 @@ ifneq ("$(wildcard .env)", "")
 	export $(shell sed 's/=.*//' .env)
 endif
 
+run: ##@local Run the project locally
+run:
+	@docker-compose up -d
+
 build-middleware: ##@devops Builds LACCHAIN MIDDLEWARE production docker image
 build-middleware:
 	@docker build \
