@@ -8,7 +8,9 @@ endif
 
 run: ##@local Run the project locally
 run:
-	@docker-compose up -d
+	@docker-compose stop
+	@docker-compose up -d --build
+	@docker-compose logs -f
 
 build-middleware: ##@devops Builds LACCHAIN MIDDLEWARE production docker image
 build-middleware:
