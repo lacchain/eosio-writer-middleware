@@ -1,5 +1,4 @@
 const axios = require('axios').default
-var qs = require('qs')
 
 const { eosConfig } = require('../config')
 const { errorUtil } = require('../utils')
