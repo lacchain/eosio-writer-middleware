@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "nodemon --enable-source-maps src/index.js"
+    "watch": "nodemon -L --enable-source-maps src/index.js"
   },
   "author": "",
   "license": "ISC",

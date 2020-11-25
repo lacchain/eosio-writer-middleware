@@ -32,9 +32,26 @@ module.exports = {
     try {
       console.log('push_transaction', 'middleware')
       const originalPayload = JSON.parse(req.payload)
-      const orinalTransation = await api.deserializeTransactionWithActions(originalPayload.packed_trx)
+      const orinalTransation = await api.deserializeTransactionWithActions(
+        originalPayload.packed_trx
+      )
+      const eosioAccount = orinalTransation.actions.find(
+        (action) => action.account === 'eosio'
+      )
+
+      if (eosioAccount) {
+        const { data } = await axios.post(
+          `${eosConfig.apiEndpoint}/v1/chain/push_transaction`,
+          req.payload
+        )
+
+        return data
+      }
+
       rulesUtil.validateTransction(orinalTransation)
-      const localTransaction = await api.transact(orinalTransation, { broadcast: false })
+      const localTransaction = await api.transact(orinalTransation, {
+        broadcast: false
+      })
       let payload = originalPayload
 
       if (localTransaction.signatures[0] !== originalPayload.signatures[0]) {
@@ -42,11 +59,17 @@ module.exports = {
           compression: originalPayload.compression,
           packed_context_free_data: originalPayload.packed_context_free_data,
           packed_trx: originalPayload.packed_trx,
-          signatures: [...localTransaction.signatures, ...originalPayload.signatures]
+          signatures: [
+            ...localTransaction.signatures,
+            ...originalPayload.signatures
+          ]
         }
       }
 
-      const { data } = await axios.post(`${eosConfig.apiEndpoint}/v1/chain/push_transaction`, JSON.stringify(payload))
+      const { data } = await axios.post(
+        `${eosConfig.apiEndpoint}/v1/chain/push_transaction`,
+        JSON.stringify(payload)
+      )
 
       return data
     } catch (error) {
