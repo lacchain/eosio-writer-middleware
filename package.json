@@ -14,6 +14,7 @@
     "@hapi/hapi": "^20.0.1",
     "axios": "^0.20.0",
     "eosjs": "^21.0.3",
+    "eosjs-api": "^7.0.4",
     "eosjs-ecc": "^4.0.7",
     "node-fetch": "^2.6.1"
   },

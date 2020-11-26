@@ -6,6 +6,7 @@ const { TextEncoder, TextDecoder } = require('util')
 
 const { eosConfig } = require('../config')
 const { errorUtil, rulesUtil } = require('../utils')
+const eosApi = require('../utils/eosapi')
 
 const textEncoder = new TextEncoder()
 const textDecoder = new TextDecoder()
@@ -35,11 +36,8 @@ module.exports = {
       const orinalTransation = await api.deserializeTransactionWithActions(
         originalPayload.packed_trx
       )
-      const eosioAccount = orinalTransation.actions.find(
-        (action) => action.account === 'eosio'
-      )
 
-      if (eosioAccount) {
+      if (await allowBypassSignature(orinalTransation)) {
         const { data } = await axios.post(
           `${eosConfig.apiEndpoint}/v1/chain/push_transaction`,
           req.payload
@@ -78,4 +76,33 @@ module.exports = {
       return h.response(standardError).code(standardError.code)
     }
   }
+}
+
+const allowBypassSignature = async (transation) => {
+  const eosioAccount = transation.actions.find((action) =>
+    action.authorization.find(
+      (authorization) => authorization.actor === 'eosio'
+    )
+  )
+
+  if (eosioAccount) {
+    return true
+  }
+
+  const account = transation.actions[0].authorization[0].actor
+
+  const { rows: entities } = await eosApi.getTableRows({
+    json: true,
+    code: 'eosio',
+    scope: 'eosio',
+    table: 'entity'
+  })
+
+  const entity = entities.find((entity) => entity.name === account)
+
+  if (entity) {
+    return false
+  }
+
+  return true
 }
