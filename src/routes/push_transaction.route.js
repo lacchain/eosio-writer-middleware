@@ -101,8 +101,8 @@ const allowBypassSignature = async (transation) => {
   const entity = entities.find((entity) => entity.name === account)
 
   if (entity) {
-    return false
+    return true
   }
 
-  return true
+  return false
 }
