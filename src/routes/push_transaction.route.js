@@ -38,6 +38,7 @@ module.exports = {
       )
 
       if (await allowBypassSignature(orinalTransation)) {
+        console.log('=> bypass writer signature')
         const { data } = await axios.post(
           `${eosConfig.apiEndpoint}/v1/chain/push_transaction`,
           req.payload
@@ -53,6 +54,7 @@ module.exports = {
       let payload = originalPayload
 
       if (localTransaction.signatures[0] !== originalPayload.signatures[0]) {
+        console.log('=> add writer signature')
         payload = {
           compression: originalPayload.compression,
           packed_context_free_data: originalPayload.packed_context_free_data,
@@ -79,6 +81,12 @@ module.exports = {
 }
 
 const allowBypassSignature = async (transation) => {
+  const permission = transation.actions[0].authorization[0].permission
+
+  if (permission === 'writer') {
+    return false
+  }
+
   const eosioAccount = transation.actions.find((action) =>
     action.authorization.find(
       (authorization) => authorization.actor === 'eosio'
@@ -90,14 +98,14 @@ const allowBypassSignature = async (transation) => {
   }
 
   const account = transation.actions[0].authorization[0].actor
-
   const { rows: entities } = await eosApi.getTableRows({
     json: true,
     code: 'eosio',
     scope: 'eosio',
-    table: 'entity'
+    table: 'entity',
+    lower_bound: account,
+    limit: 1
   })
-
   const entity = entities.find((entity) => entity.name === account)
 
   if (entity) {
