@@ -9,7 +9,9 @@ module.exports = {
   handler: async (req, h) => {
     try {
       console.log('get_info', 'middleware')
-      const { data } = await axios.post(`${eosConfig.apiEndpoint}/v1/chain/get_info`)
+      const { data } = await axios.post(
+        `${eosConfig.apiEndpoint}/v1/chain/get_info`
+      )
 
       return data
     } catch (error) {

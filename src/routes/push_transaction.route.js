@@ -27,7 +27,7 @@ const api = new Api({
 })
 
 module.exports = {
-  method: 'POST',
+  method: ['GET', 'POST'],
   path: '/v1/chain/push_transaction',
   handler: async (req, h) => {
     try {

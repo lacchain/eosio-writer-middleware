@@ -4,12 +4,15 @@ const { eosConfig } = require('../config')
 const { errorUtil } = require('../utils')
 
 module.exports = {
-  method: 'POST',
+  method: ['GET', 'POST'],
   path: '/v1/chain/get_account',
   handler: async (req, h) => {
     try {
       console.log('get_account', 'middleware')
-      const { data } = await axios.post(`${eosConfig.apiEndpoint}/v1/chain/get_account`, req.payload)
+      const { data } = await axios.post(
+        `${eosConfig.apiEndpoint}/v1/chain/get_account`,
+        req.payload
+      )
 
       // TODO: add comment to clarify kyes usage
       return {

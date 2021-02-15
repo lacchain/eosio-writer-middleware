@@ -1,5 +1,5 @@
 module.exports = {
-  method: 'GET',
+  method: ['GET', 'POST'],
   path: '/healthz',
   handler: () => 'OK'
 }
