@@ -4,7 +4,7 @@ const { eosConfig } = require('../config')
 const { errorUtil } = require('../utils')
 
 module.exports = {
-  method: 'POST',
+  method: ['GET', 'POST'],
   path: '/v1/chain/get_accounts_by_authorizers',
   handler: async (req, h) => {
     try {

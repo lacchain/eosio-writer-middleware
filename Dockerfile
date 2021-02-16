@@ -12,5 +12,5 @@ COPY ./src ./src
 FROM base AS release
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/src ./src
-USER node
+USER root
 CMD ["node", "./src/index.js"]
