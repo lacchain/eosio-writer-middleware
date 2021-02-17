@@ -1,5 +1,6 @@
 const { eosConfig } = require('../config')
 const { ValidationRuleError } = require('./error.util')
+const eosApi = require('./eosapi')
 
 const validateTransction = (transaction) => {
   // TODO: add new validation rules
@@ -63,6 +64,43 @@ const validateTransction = (transaction) => {
   }
 }
 
+const allowBypassSignature = async (transation) => {
+  const permission = transation.actions[0].authorization[0].permission
+
+  if (permission === 'writer') {
+    return false
+  }
+
+  const eosioAccount = transation.actions.find((action) =>
+    action.authorization.find(
+      (authorization) => authorization.actor === 'eosio'
+    )
+  )
+
+  if (eosioAccount) {
+    return true
+  }
+
+  const account = transation.actions[0].authorization[0].actor
+  console.log(account)
+  const { rows: entities } = await eosApi.getTableRows({
+    json: true,
+    code: 'eosio',
+    scope: 'eosio',
+    table: 'entity',
+    lower_bound: account,
+    limit: 1
+  })
+  const entity = entities.find((entity) => entity.name === account)
+
+  if (entity) {
+    return true
+  }
+
+  return false
+}
+
 module.exports = {
-  validateTransction
+  validateTransction,
+  allowBypassSignature
 }

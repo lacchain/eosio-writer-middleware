@@ -1,7 +1,7 @@
 const axios = require('axios').default
 
 const { eosConfig } = require('../config')
-const { errorUtil, rulesUtil } = require('../utils')
+const { errorUtil, rulesUtil, getPayloadUtil } = require('../utils')
 
 module.exports = {
   method: ['GET', 'POST'],
@@ -9,18 +9,25 @@ module.exports = {
   handler: async (req, h) => {
     try {
       console.log('get_required_keys', 'middleware')
-      const originalPayload = JSON.parse(req.payload)
-      rulesUtil.validateTransction(originalPayload.transaction)
-      const payload = {
-        ...originalPayload,
-        available_keys: [
-          eosConfig.writer.pubKey,
-          ...originalPayload.available_keys
-        ]
+      const payload = getPayloadUtil(req)
+
+      if (await rulesUtil.allowBypassSignature(payload.transaction)) {
+        console.log('=> bypass writer signature')
+        const { data } = await axios.post(
+          `${eosConfig.apiEndpoint}/v1/chain/get_required_keys`,
+          JSON.stringify(payload)
+        )
+
+        return data
       }
+
+      rulesUtil.validateTransction(payload.transaction)
       const { data } = await axios.post(
         `${eosConfig.apiEndpoint}/v1/chain/get_required_keys`,
-        JSON.stringify(payload)
+        JSON.stringify({
+          ...payload,
+          available_keys: [eosConfig.writer.pubKey, ...payload.available_keys]
+        })
       )
 
       return {
