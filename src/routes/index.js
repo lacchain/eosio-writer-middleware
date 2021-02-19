@@ -5,6 +5,7 @@ const getRequiredKeysRoute = require('./get-required-keys.route')
 const healthzRoute = require('./healthz.route')
 const proxyRoute = require('./proxy.route')
 const pushTransactionRoute = require('./push_transaction.route')
+const sendTransactionRoute = require('./send_transaction.route')
 
 module.exports = [
   getAccountRoute,
@@ -13,5 +14,6 @@ module.exports = [
   getRequiredKeysRoute,
   healthzRoute,
   proxyRoute,
-  pushTransactionRoute
+  pushTransactionRoute,
+  sendTransactionRoute
 ]
