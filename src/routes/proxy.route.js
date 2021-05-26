@@ -1,17 +1,18 @@
 const axios = require('axios').default
 
 const { eosConfig } = require('../config')
-const { errorUtil } = require('../utils')
+const { errorUtil, getPayloadUtil } = require('../utils')
 
 module.exports = {
   method: ['GET', 'POST'],
-  path: '/v1/chain/{path*}',
+  path: '/{any*}',
   handler: async (req, h) => {
     try {
-      console.log(req.params.path, 'proxy')
+      console.log(req.path, 'proxy')
+      const payload = getPayloadUtil(req) || {}
       const { data } = await axios.post(
-        `${eosConfig.apiEndpoint}/v1/chain/${req.params.path}`,
-        req.payload || {}
+        `${eosConfig.apiEndpoint}${req.path}`,
+        payload
       )
 
       return data
