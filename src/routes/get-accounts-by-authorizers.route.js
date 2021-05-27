@@ -1,7 +1,7 @@
 const axios = require('axios').default
 
 const { eosConfig } = require('../config')
-const { errorUtil } = require('../utils')
+const { errorUtil, getPayloadUtil } = require('../utils')
 
 module.exports = {
   method: ['GET', 'POST'],
@@ -9,15 +9,7 @@ module.exports = {
   handler: async (req, h) => {
     try {
       console.log('get_accounts_by_authorizers', 'middleware')
-      let payload = req.payload || {}
-
-      if (req.headers['content-type'] === 'application/x-www-form-urlencoded') {
-        payload = {}
-        Object.keys(req.payload).forEach((element) => {
-          payload = { ...payload, ...JSON.parse(element) }
-        })
-      }
-
+      const payload = getPayloadUtil(req) || {}
       const { data } = await axios.post(
         `${eosConfig.apiEndpoint}/v1/chain/get_accounts_by_authorizers`,
         payload
