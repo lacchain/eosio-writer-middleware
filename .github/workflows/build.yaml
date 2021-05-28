@@ -34,4 +34,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: docker.pkg.github.com/latamlink/eosio-writer-middleware:latest
+          tags: docker.pkg.github.com/latamlink/eosio-writer-middleware/writer-middleware:latest
