@@ -1,8 +1,11 @@
-<h3 align="center">Writer Node Middleware fr LACChain EOSIO Network</h3>
-
 <p align="center">
-A proxy for the EOSIO HTTP RPC API that includes writer signatures to authorize transactions as well as comply with EOS Signing request for authentication using popular wallets.
+   <img src="./docs/lacchain-eosio-logo.png" width="500">
 </p>
+
+# Writer Node Middleware for LACChain EOSIO Framework
+
+
+A proxy for the EOSIO HTTP RPC API that includes writer signatures to authorize transactions as well as comply with EOS Signing request for authentication using popular eosio wallets.
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -33,7 +36,7 @@ npm install npm@latest -g
 
 1. Clone the repo
 ```sh
-git clone https://github.com/LatamLink/writer-middleware.git
+git clone https://github.com/lacchain/eosio-writer-middleware.git
 ```
 2. Install NPM packages
 ```sh
@@ -47,14 +50,12 @@ Set environmental variables by renaming `env.example` to `.env.` and adding corr
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-For more examples, please refer to the [Documentation](https://latamlink.io/docs/eosio)
+For more information, please refer to the [LACChain EOSIO Documentation](https://eosio.lacchain.net/en/docs/eosio)
 
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/LatamLink/writer-middleware/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/lacchain/eosio-writer-middleware/issues) for a list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -75,9 +76,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Website - [latamlink.io](https://latamlink.io)
+Website - [eosio.lacchain.net](https://eosio.lacchain.net)
 
-Twitter - [@LatamLink_EOS](https://twitter.com/LatamLink_EOS)
+Twitter - [@LACChain_EOSIO](https://twitter.com/LACChain_EOSIO)
 
-Project Link: [https://github.com/LatamLink/writer-middleware](https://github.com/LatamLink/writer-middleware)
+GitHub [Project Repository](https://github.com/lacchain/eosio-writer-middleware)
 
