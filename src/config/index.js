@@ -1,3 +1,4 @@
 module.exports = {
-  eosConfig: require('./eos.config')
+  eosConfig: require('./eos.config'),
+  serverConfig: require('./server.config')
 }

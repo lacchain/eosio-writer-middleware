@@ -5,7 +5,7 @@ services:
     container_name: writer-middleware
     image: node:14.2.0
     ports:
-      - '8080:8080'
+      - '8888:8888'
     volumes:
       - ./temp/node_modules:/app/node_modules
       - ./:/app
@@ -18,3 +18,5 @@ services:
       MIDDLEWARE_EOS_WRITER_ACCOUNT_NAME: ${MIDDLEWARE_EOS_WRITER_ACCOUNT_NAME}
       MIDDLEWARE_EOS_WRITER_PUB_KEY: '${MIDDLEWARE_EOS_WRITER_PUB_KEY}'
       MIDDLEWARE_EOS_WRITER_PRI_KEY: '${MIDDLEWARE_EOS_WRITER_PRI_KEY}'
+      MIDDLEWARE_SERVER_PORT: '${MIDDLEWARE_SERVER_PORT}'
+      MIDDLEWARE_SERVER_ADDRESS: '${MIDDLEWARE_SERVER_ADDRESS}'
