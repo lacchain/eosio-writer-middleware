@@ -5,7 +5,7 @@ services:
     container_name: writer-middleware
     image: node:14.2.0
     ports:
-      - '8888:8888'
+      - '8080:8080'
     volumes:
       - ./temp/node_modules:/app/node_modules
       - ./:/app
