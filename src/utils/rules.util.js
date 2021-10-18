@@ -82,7 +82,6 @@ const allowBypassSignature = async (transation) => {
   }
 
   const account = transation.actions[0].authorization[0].actor
-  console.log(account)
   const { rows: entities } = await eosApi.getTableRows({
     json: true,
     code: 'eosio',
