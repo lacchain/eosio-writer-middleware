@@ -11,7 +11,7 @@ const eosApi = require('../utils/eosapi')
 const textEncoder = new TextEncoder()
 const textDecoder = new TextDecoder()
 const rpc = new JsonRpc(eosConfig.apiEndpoint, { fetch })
-const api = new Api({
+const apiData = {
   rpc,
   textDecoder,
   textEncoder,
@@ -24,7 +24,7 @@ const api = new Api({
   },
   // TODO: get privateKey from vault
   signatureProvider: new JsSignatureProvider([eosConfig.writer.privateKey])
-})
+}
 
 module.exports = {
   method: ['GET', 'POST'],
@@ -32,6 +32,8 @@ module.exports = {
   handler: async (req, h) => {
     try {
       console.log('push_transaction', 'middleware')
+
+      const api = new Api(apiData)
       const originalPayload = JSON.parse(req.payload)
       const orinalTransation = await api.deserializeTransactionWithActions(
         originalPayload.packed_trx
