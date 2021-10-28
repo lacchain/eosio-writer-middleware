@@ -10,7 +10,7 @@ const { errorUtil, rulesUtil, getPayloadUtil } = require('../utils')
 const textEncoder = new TextEncoder()
 const textDecoder = new TextDecoder()
 const rpc = new JsonRpc(eosConfig.apiEndpoint, { fetch })
-const api = new Api({
+const apiData = {
   rpc,
   textDecoder,
   textEncoder,
@@ -23,7 +23,7 @@ const api = new Api({
   },
   // TODO: get privateKey from vault
   signatureProvider: new JsSignatureProvider([eosConfig.writer.privateKey])
-})
+}
 
 module.exports = {
   method: ['GET', 'POST'],
@@ -31,6 +31,8 @@ module.exports = {
   handler: async (req, h) => {
     try {
       console.log('push_transactions', 'middleware')
+
+      const api = new Api(apiData)
       const transactions = getPayloadUtil(req)
       const newTransactions = []
 
